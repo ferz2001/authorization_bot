@@ -62,7 +62,7 @@ if __name__ == '__main__':
             for login, password in DATA.items():
                 main(login, password)
                 send_message(f'Произошёл вход с аккаунта {login}')
-            for i in range (1,144):
+            for i in range (1,216):
                 requests.get('https://www.google.com/')
                 time.sleep(20 * 60)
         except Exception as e:
