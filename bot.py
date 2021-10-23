@@ -24,12 +24,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
-handler = RotatingFileHandler('mylog.log', maxBytes=50000000, backupCount=1)
-logger.addHandler(handler)
-formatter = logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-handler.setFormatter(formatter)
 
 bot = tg.Bot(token=BOT_TOKEN)
 logger.debug('Bot is ready')
