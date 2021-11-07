@@ -24,6 +24,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
+handler = RotatingFileHandler('mylog.log', maxBytes=50000000, backupCount=1)
+logger.addHandler(handler)
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+handler.setFormatter(formatter)
 
 bot = tg.Bot(token=BOT_TOKEN)
 logger.debug('Bot is ready')
@@ -35,6 +41,7 @@ def main(login, password):
     try:
         driver = webdriver.Chrome()
         driver.get(URL_LOG)
+        time.sleep(5)
         username_input = driver.find_element_by_id("username")
         username_input.clear()
         username_input.send_keys(login)
@@ -48,7 +55,6 @@ def main(login, password):
     except Exception as e:
         send_message(f'Бот упал с ошибкой: {e}')
         logger.error(e, exc_info=True)
-    
 
 if __name__ == '__main__':
     while True:
@@ -56,7 +62,7 @@ if __name__ == '__main__':
             for login, password in DATA.items():
                 main(login, password)
                 send_message(f'Произошёл вход с аккаунта {login}')
-            for i in range (1,900):
+            for i in range (1,216):
                 requests.get('https://www.google.com/')
                 time.sleep(20 * 60)
         except Exception as e:
